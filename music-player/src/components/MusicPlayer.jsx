@@ -1,3 +1,3 @@
 export const MusicPlayer = () => {
-    return <div>music player</div>
+    return <div className="music-player">music player</div>
 }
