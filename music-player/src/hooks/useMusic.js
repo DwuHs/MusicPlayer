@@ -1,0 +1,73 @@
+import { useState } from "react"
+
+const songs = [
+    {
+        id: 1,
+        title: "Sparks",
+        artist: "Coldplay",
+        url: "/songs/Coldplay - Sparks.wav",
+        duration: "3:47"
+    },
+    {
+        id: 2,
+        title: "Yellow",
+        artist: "Coldplay",
+        url: "/songs/Coldplay - Yellow.wav",
+        duration: "4:26"
+    },
+    {
+        id: 3,
+        title: "Die For You",
+        artist: "Joji",
+        url: "/songs/Joji - Die For You.wav",
+        duration: "3:31"
+    },
+    {
+        id: 4,
+        title: "SLOW DANCING IN THE DARK",
+        artist: "Joji",
+        url: "/songs/Joji - SLOW DANCING IN THE DARK.wav",
+        duration: "3:29"
+    },
+    {
+        id: 5,
+        title: "Line Without a Hook",
+        artist: "Ricky Montgomery",
+        url: "/songs/Ricky Montgomery - Line Without a Hook.wav",
+        duration: "4:09"
+    },
+    {
+        id: 6,
+        title: "I Thought I Saw Your Face Today",
+        artist: "She & Him",
+        url: "/songs/She & Him - I Thought I Saw Your Face Today.wav",
+        duration: "2:50"
+    },
+    {
+        id: 7,
+        title: "Love Like You",
+        artist: "Steven Universe",
+        url: "/songs/Steven Universe - Love Like You.wav",
+        duration: "2:23"
+    },
+    {
+        id: 8,
+        title: "Freaks",
+        artist: "Surf Curse",
+        url: "/songs/Surf Curse - Freaks.wav",
+        duration: "2:27"
+    },
+    {
+        id: 9,
+        title: "I Love You So",
+        artist: "The Walters",
+        url: "/songs/The Walters - I Love You So.wav",
+        duration: "2:27"
+    }
+]
+
+export const useMusic = () => {
+    const [allSongs, setAllSongs] = useState([songs]);
+
+    return allSongs;
+}
