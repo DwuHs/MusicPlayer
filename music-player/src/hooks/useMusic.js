@@ -72,10 +72,28 @@ export const useMusic = () => {
     const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
     const [currentTime, setCurrentTime] = useState(0);
     const [duration, setDuration] = useState(0);
+    const [isPlaying, setIsPlaying] = useState(false);
 
     const handlePlaySong = (song, index) => {
         setCurrentTrack(song);
         setCurrentTrackIndex(index);
+    }
+
+    const nextTrack = () => {
+        setCurrentTrackIndex((prev) => {
+            const nextIndex = (prev + 1) % allSongs.length;
+            setCurrentTrack(allSongs[nextIndex]);
+            return nextIndex;
+        });
+    }
+
+    
+    const prevTrack = () => {
+        setCurrentTrackIndex((prev) => {
+            const nextIndex = prev === 0 ? allSongs.length - 1 : (prev - 1)
+            setCurrentTrack(allSongs[nextIndex]);
+            return nextIndex;
+        });
     }
 
     const formatTime = (time) =>{
@@ -87,11 +105,27 @@ export const useMusic = () => {
         return `${minutes}:${seconds.toString().padStart(2, "0")}`
     }
 
+    const play = () => {
+        setIsPlaying(true);
+    } 
+
+    const pause = () => {
+        setIsPlaying(false);
+    } 
+
     return {allSongs, 
             handlePlaySong, 
             currentTrack, 
             currentTrackIndex, 
             currentTime, 
+            setCurrentTime,
             formatTime,
-            duration};
+            duration,
+            setDuration,
+            nextTrack,
+            prevTrack,
+            play,
+            pause,
+            isPlaying
+            };
 }
