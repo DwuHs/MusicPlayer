@@ -1,4 +1,4 @@
-import { useMusic } from "../hooks/useMusic"
+import { useMusic } from "../contexts/MusicContext";
 
 export const AllSongs = () => {
     const { allSongs, handlePlaySong, currentTrackIndex } = useMusic();
@@ -8,8 +8,8 @@ export const AllSongs = () => {
             <div className="songs-grid">
                 {allSongs.map((song, key) => (
                     <div key={key} 
-                    className={`song-card ${currentTrackIndex === key ? "active" : ""}`}
-                    onClick={() => handlePlaySong(song, key)}
+                        className={`song-card ${currentTrackIndex === key ? "active" : ""}`}
+                        onClick={() => handlePlaySong(song, key)}
                     >
                         <div className="song-info">
                             <h3 className="song-title">{song.title}</h3>

@@ -1,4 +1,7 @@
-import { useState } from "react"
+import { createContext, useState, useContext } from "react";
+
+
+export const MusicContext = createContext();
 
 const songs = [
     {
@@ -66,7 +69,7 @@ const songs = [
     }
 ]
 
-export const useMusic = () => {
+export const MusicProvider = ({children}) => {
     const [allSongs, setAllSongs] = useState(songs);
     const [currentTrack, setCurrentTrack] = useState(songs[0]);
     const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
@@ -118,22 +121,36 @@ export const useMusic = () => {
         setIsPlaying(false);
     } 
 
-    return {
-        allSongs, 
-        handlePlaySong, 
-        currentTrack, 
-        currentTrackIndex, 
-        currentTime, 
-        setCurrentTime,
-        formatTime,
-        duration,
-        setDuration,
-        nextTrack,
-        prevTrack,
-        play,
-        pause,
-        isPlaying,
-        volume,
-        setVolume
-        };
+
+    return (
+        <MusicContext.Provider 
+        value={{
+            allSongs, 
+            handlePlaySong, 
+            currentTrack, 
+            currentTrackIndex, 
+            currentTime, 
+            setCurrentTime,
+            formatTime,
+            duration,
+            setDuration,
+            nextTrack,
+            prevTrack,
+            play,
+            pause,
+            isPlaying,
+            volume,
+            setVolume,
+        }}>
+            {children}
+        </MusicContext.Provider>
+    )
+}
+
+export const useMusic = () => {
+    const contextValue = useContext(MusicContext);
+    if (!contextValue){
+        throw new Error("useMusic needs to be inside of MusicProvider");
+    } 
+    return contextValue;    
 }

@@ -1,5 +1,5 @@
-import { useMusic } from "../hooks/useMusic"
 import { useEffect, useRef } from "react";
+import { useMusic } from "../contexts/MusicContext";
 
 export const MusicPlayer = () => {
     const {
@@ -53,15 +53,17 @@ export const MusicPlayer = () => {
         }
 
         audio.addEventListener("loadedmetadata", handleLoadedMetaData);
+        audio.addEventListener("canplay", handleLoadedMetaData);
         audio.addEventListener("timeupdate", handleTimeUpdate);
         audio.addEventListener("ended", handleEnded);
 
         return () => {
             audio.removeEventListener("loadedmetadata", handleLoadedMetaData);
+            audio.removeEventListener("canplay", handleLoadedMetaData);
             audio.removeEventListener("timeupdate", handleTimeUpdate);
             audio.removeEventListener("ended", handleEnded);
         }
-    }, [setDuration, setCurrentTime, currentTrack]);
+    }, [setDuration, setCurrentTime, currentTrack, nextTrack]);
 
     useEffect(() => {
         const audio = audioRef.current;
@@ -79,6 +81,15 @@ export const MusicPlayer = () => {
 
         audio.volume=volume;
     }, [volume]);
+
+    useEffect(() => {
+        const audio = audioRef.current;
+        if (!audio) return;
+
+        audio.load();
+        setCurrentTime(0);
+        setDuration(0);
+    }, [currentTrack, setCurrentTime, setDuration])
 
     return (
         <div className="music-player">
