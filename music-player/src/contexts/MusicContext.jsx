@@ -90,6 +90,9 @@ export const MusicProvider = ({ children }) => {
     if (playlists.length > 0) {
       localStorage.setItem("musicPlayerPlaylist", JSON.stringify(playlists));
     }
+    else {
+      localStorage.removeItem("musicPlayerPlaylist");
+    }
   }, [playlists]);
 
   const handlePlaySong = (song, index) => {
